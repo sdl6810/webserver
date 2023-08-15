@@ -18,3 +18,7 @@ while j > 0:
 
 print(activeList)
 print(queueList)
+
+class Station():
+	def __init__(self):
+		
