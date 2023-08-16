@@ -2,20 +2,35 @@ from flask import Flask
 from flask import render_template
 from flask import session, request
 import time
+from polynomialEncryption import *
+from openpyxl import Workbook, load_workbook
 
 app = Flask(__name__)
 app.secret_key="random nonsense"
 
-#create a boilerplate header and background for overall web application or website
-def generateBoilerplateHTML():
-    return None
+@app.route('/my-form/')
+def my_form():
+    return render_template('my-form.html',session=session)
 
-#def updateRecentPlayed():
-    #first test if current song is finished.  If it is, record it's information into the l
+@app.route('/my-form/',methods=['POST'])
+def my_form_post():
+    text = request.form['text']
+    processed_text = text.upper()
+    return processed_text
 
-@app.route('/')
-def goToWelcomePage():
-    return render_template("home.html",session=session)
+@app.route('/submit', methods=['POST'])
+def submit():
+    wb = load_workbook('/home/sdl5384/Desktop/Python_SRC/webserver/Raybert/messageData.xlsx')
+    ws = wb.active
+    text = format(request.form['text'])
+    e = polynomialEncryption(text)
+    text = e.encryptText()
+    nextRow = ws.max_row+1
+    ws['A'+str(nextRow)].value = 'Timestamp'
+    ws['B'+str(nextRow)].value = e.newMsg
+
+    wb.save('/home/sdl5384/Desktop/Python_SRC/webserver/Raybert/messageData.xlsx')
+    return render_template('/after-data-entered.html',session=session)
 
 # @app.route('/rollTheDice/')
 # def rollTheDice():

@@ -1,0 +1,35 @@
+<html>
+	<body>
+		<h1>Raybert Experimentation Server</h1>
+		<br></br>
+		<h3>Please provide the following information</h3>
+		<ul>
+			<li>Name</li>
+			<li>Age</li>
+			<li>Occupation</li>
+			<li>Place of residence</li>
+
+			<p>Write your description in the text area like this (you can resize if necessary.)
+				<br></br>
+				Jaden
+				<br></br>
+				29
+				<br></br>
+				Liverpool, NY
+				<br></br>
+				Software Developer
+				<br></br>
+				Hi, how are you? It is a pleasure to meet you!  How was your summer so far?
+
+				Be sure to click submit when finished.
+				Do this for every person you have an interaction with.  Data will be tabulated as the event continues.
+				<br></br>
+				I will try to have a summary for data completed every 1 to 2 weeks!  Be sure to check the encryption/decryption page for the latest message(s).
+			</p>
+		</ul>
+		<form action="{{ url_for('submit') }}" method="post">
+			<textarea name="text"></textarea>
+			<input type="submit">
+		</form>
+	</body>
+</html>
